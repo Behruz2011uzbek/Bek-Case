@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>BEK CASE</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#FFD700;--epic:#9B59B6;--rare:#2ECC71;--common:#95A5A6;--legendary:#E74C3C;--bg:#050A14;--card:#0D1B2A;--card2:#112233;--neon:#00F5FF;--neon2:#FF00AA;--text:#E0E8F0;--wallet:#00FF87}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;background-image:radial-gradient(ellipse at 20% 50%,rgba(0,245,255,.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(255,0,170,.04) 0%,transparent 60%)}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding-bottom:100px}
+.header{background:linear-gradient(135deg,#0a1628,#0d2040);border-bottom:1px solid rgba(0,245,255,.2);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px)}
+.logo{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px}
+.bal-box{display:flex;gap:8px;align-items:center}
+.bal{background:linear-gradient(135deg,#1a2a1a,#0d2010);border:1px solid rgba(255,215,0,.4);border-radius:20px;padding:6px 12px;font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:4px;animation:glowpulse 3s infinite}
+.bal.uzs{background:linear-gradient(135deg,#0a252a,#05151a);border:1px solid rgba(0,255,135,.4);color:var(--wallet);animation:none}
+@keyframes glowpulse{0%,100%{box-shadow:0 0 15px rgba(255,215,0,.2)}50%{box-shadow:0 0 30px rgba(255,215,0,.5)}}
+.coin-spin{animation:cspin 2s infinite;display:inline-block}
+@keyframes cspin{0%,100%{transform:rotateY(0)}50%{transform:rotateY(180deg)}}
+.ucard{margin:16px;background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid rgba(0,245,255,.15);border-radius:16px;padding:18px;position:relative;overflow:hidden}
+.ucard::after{content:'';position:absolute;top:-50%;right:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(0,245,255,.06),transparent 70%);pointer-events:none}
+.uname{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:700;color:var(--neon);margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sbox{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px;text-align:center}
+.sval{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--gold)}
+.sval.vuzs{color:var(--wallet)}
+.slbl{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.sec-title{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:var(--neon);text-transform:uppercase;letter-spacing:3px;padding:0 16px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(0,245,255,.3),transparent)}
+.case-btn{margin:0 16px 20px;background:linear-gradient(135deg,#0d2040,#1a0d40);border:2px solid rgba(0,245,255,.3);border-radius:20px;padding:22px;cursor:pointer;position:relative;overflow:hidden;transition:all .3s;text-align:center;display:block;width:calc(100% - 32px)}
+.case-btn:hover{border-color:var(--neon);box-shadow:0 0 30px rgba(0,245,255,.3);transform:translateY(-2px)}
+.case-icon{font-size:60px;display:block;margin-bottom:10px;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(0,245,255,.5))}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-12px) rotate(5deg)}}
+.case-title{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;color:white;margin-bottom:6px}
+.case-price{font-size:20px;font-weight:700;color:var(--gold)}
+.odds-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.odd-item{background:rgba(0,0,0,.3);border-radius:10px;padding:8px;text-align:center}
+.odd-item.l{border-top:2px solid var(--legendary)}.odd-item.e{border-top:2px solid var(--epic)}.odd-item.c{border-top:2px solid var(--common)}
+.odd-pct{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700}
+.odd-item.l .odd-pct{color:var(--legendary)}.odd-item.e .odd-pct{color:var(--epic)}.odd-item.c .odd-pct{color:var(--common)}
+.odd-name{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.games-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px;margin-bottom:20px}
+.gcard{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 14px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;text-align:center}
+.gcard:hover{transform:translateY(-4px);border-color:rgba(0,245,255,.4);box-shadow:0 8px 25px rgba(0,0,0,.4)}
+.gcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--acc,var(--neon));opacity:.7}
+.gcard.crash{--acc:#FF6B35}.gcard.cards{--acc:#9B59B6}.gcard.spin{--acc:#FFD700}.gcard.inv{--acc:#2ECC71}
+.gem{font-size:34px;margin-bottom:8px;display:block}
+.gname{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:white;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.gcost{font-size:12px;color:rgba(255,255,255,.5)}
+.promo-box{padding:0 16px;margin-bottom:20px}
+.promo-wrap{display:flex;gap:10px}
+.promo-inp{flex:1;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:13px 16px;color:white;font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:600;text-transform:uppercase;outline:none;letter-spacing:2px}
+.promo-inp:focus{border-color:var(--neon)}
+.promo-btn{background:linear-gradient(135deg,#1a2a1a,#0d2010);border:1px solid rgba(255,215,0,.4);border-radius:12px;padding:13px 18px;color:var(--gold);font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .3s}
+.promo-btn:hover{border-color:var(--gold);box-shadow:0 0 15px rgba(255,215,0,.2)}
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);z-index:1000;display:none;align-items:flex-end;justify-content:center}
+.modal-ov.active{display:flex}
+.modal{width:100%;max-width:480px;background:linear-gradient(135deg,#0a1628,#0d1f35);border:1px solid rgba(0,245,255,.2);border-bottom:none;border-radius:24px 24px 0 0;padding:20px 20px 40px;animation:slideUp .3s ease;max-height:90vh;overflow-y:auto}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mhandle{width:40px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin:0 auto 18px}
+.mtitle{font-family:'Orbitron',sans-serif;font-size:19px;font-weight:900;text-align:center;margin-bottom:20px;background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.reveal-area{background:rgba(0,0,0,.4);border:1px solid rgba(0,245,255,.15);border-radius:16px;padding:28px;text-align:center;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:18px;position:relative;overflow:hidden}
+@keyframes popIn{0%{transform:scale(0) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(0deg);opacity:1}}
+.rbadge{padding:4px 16px;border-radius:20px;font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.rbadge.legendary{background:rgba(231,76,60,.3);color:#E74C3C;border:1px solid #E74C3C}
+.rbadge.epic{background:rgba(155,89,182,.3);color:#9B59B6;border:1px solid #9B59B6}
+.rbadge.common{background:rgba(149,165,166,.3);color:#BDC3C7;border:1px solid #95A5A6}
+.btn-p{width:100%;background:linear-gradient(135deg,#0066CC,#0044AA);border:2px solid rgba(0,245,255,.4);border-radius:14px;padding:15px;color:white;font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(0,102,204,.3)}
+.btn-p:hover{background:linear-gradient(135deg,#0077EE,#0055BB);box-shadow:0 4px 30px rgba(0,102,204,.5);transform:translateY(-1px)}
+.btn-p:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-s{width:100%;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:13px;color:rgba(255,255,255,.6);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;margin-top:10px}
+.crash-display{background:rgba(0,0,0,.5);border:1px solid rgba(255,107,53,.3);border-radius:16px;padding:28px;text-align:center;margin-bottom:18px;position:relative;overflow:hidden}
+.crash-mult{font-family:'Orbitron',sans-serif;font-size:52px;font-weight:900;color:#FF6B35;text-shadow:0 0 30px rgba(255,107,53,.7);transition:all .2s}
+.crash-mult.up{color:#2ECC71;text-shadow:0 0 30px rgba(46,204,113,.7)}
+.crash-mult.dead{color:#E74C3C;text-shadow:0 0 30px rgba(231,76,60,.7)}
+.crash-line{width:100%;height:3px;background:linear-gradient(90deg,transparent,#FF6B35,transparent);margin:14px 0;border-radius:2px;position:relative;overflow:hidden}
+.crash-line::after{content:'';position:absolute;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,white,transparent);animation:scan 1s linear infinite}
+@keyframes scan{to{left:100%}}
+.inp-grp{margin-bottom:14px}
+.inp-lbl{font-size:12px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.ginp{width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(0,245,255,.2);border-radius:12px;padding:13px 16px;color:white;font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;text-align:center;outline:none;transition:border-color .3s}
+.ginp:focus{border-color:var(--neon);box-shadow:0 0 15px rgba(0,245,255,.2)}
+.qbets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.qbet{background:rgba(0,0,0,.4);border:1px solid rgba(255,215,0,.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:12px;color:var(--gold);transition:all .2s}
+.qbet:hover{background:rgba(255,215,0,.1);border-color:var(--gold)}
+.cards-wrap{display:flex;gap:12px;justify-content:center;margin:14px 0;flex-wrap:wrap}
+.pcard{width:78px;height:108px;background:linear-gradient(135deg,#1a0d30,#0d1a40);border:2px solid rgba(155,89,182,.4);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:white;transition:all .3s;position:relative;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.4)}
+.pcard::before{content:'';position:absolute;font-size:34px;color:rgba(155,89,182,.3)}
+.pcard.rev::before{display:none}
+.pcard.win{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,.4);background:linear-gradient(135deg,#2a1a0d,#1a2a0d)}
+.pcard.lose{border-color:#E74C3C;opacity:.6}
+.spin-cnt{display:flex;flex-direction:column;align-items:center;padding:16px 0}
+.wheel{width:210px;height:210px;border-radius:50%;background:conic-gradient(#E74C3C 0deg 18deg,#2ECC71 18deg 72deg,#9B59B6 72deg 180deg,#3498DB 180deg 360deg);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 0 30px rgba(0,0,0,.5);transition:transform 3s cubic-bezier(.25,.46,.45,.94)}
+.wheel-in{width:78px;height:78px;background:var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;border:3px solid rgba(255,255,255,.1);z-index:2}
+.wheel-ptr{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:22px;z-index:10}
+.inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}
+.wcard{background:var(--card);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.06);position:relative}
+.wcard.legendary{border-color:rgba(231,76,60,.4);box-shadow:0 0 15px rgba(231,76,60,.1)}
+.wcard.epic{border-color:rgba(155,89,182,.4)}
+.wcard.common{border-color:rgba(149,165,166,.2)}
+.wcnt{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:2px 8px;font-family:'Orbitron',sans-serif;font-size:10px;color:rgba(255,255,255,.7)}
+.wico{font-size:38px;margin-bottom:7px}
+.wnm{font-size:13px;font-weight:700;color:white;margin-bottom:4px;line-height:1.3}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:linear-gradient(0deg,#050A14 80%,transparent);padding:10px 16px 18px;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;z-index:500;border-top:1px solid rgba(0,245,255,.1)}
+.nitem{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px;border-radius:12px;cursor:pointer;transition:all .2s;border:1px solid transparent}
+.nitem.active{background:rgba(0,245,255,.1);border-color:rgba(0,245,255,.2)}
+.nico{font-size:20px}.nlbl{font-size:9px;font-family:'Orbitron',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.4)}
+.nitem.active .nlbl{color:var(--neon)}
+.tab{display:none}.tab.active{display:block}
+.toast{position:fixed;top:78px;left:50%;transform:translateX(-50%) translateY(-20px);background:linear-gradient(135deg,#0a1628,#0d2040);border:1px solid var(--neon);border-radius:12px;padding:11px 22px;font-family:'Orbitron',sans-serif;font-size:12px;color:var(--neon);z-index:9999;opacity:0;transition:all .3s;white-space:nowrap;box-shadow:0 4px 20px rgba(0,245,255,.3);pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.particle{position:fixed;pointer-events:none;font-size:18px;animation:pfly 1.5s ease-out forwards;z-index:9999}
+@keyframes pfly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}}
+
+/* EXCHANGE STYLE */
+.exch-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px;margin-bottom:20px}
+.excard{background:linear-gradient(135deg,#0f233c,#0a1726);border:1px solid rgba(0,255,135,.15);border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .3s;position:relative;border-bottom:3px solid var(--wallet)}
+.excard:hover{transform:translateY(-3px);border-color:var(--wallet);box-shadow:0 6px 20px rgba(0,255,135,.15)}
+.ex-tanga{font-family:'Orbitron',sans-serif;font-size:15px;color:var(--gold);font-weight:700;margin-bottom:4px}
+.ex-arrow{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:4px}
+.ex-pul{font-family:'Orbitron',sans-serif;font-size:16px;color:var(--wallet);font-weight:900}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<div class="header">
+  <div class="logo">⚔️ BekCase</div>
+  <div class="bal-box">
+    <div class="bal"><span class="coin-spin">🪙</span><span id="hcoins">0</span></div>
+    <div class="bal UZS"><span class="card-ico">💳</span><span id="huzs">0</span> UZS</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="tab active" id="t-home">
+    <div class="ucard">
+      <div class="uname" id="uname">⚡ WARRIOR</div>
+      <div class="stats">
+        <div class="sbox"><div class="sval" id="s-coins">0</div><div class="slbl">🪙 Tanga</div></div>
+        <div class="sbox"><div class="sval" id="s-cases">0</div><div class="slbl">📦 Case</div></div>
+        <div class="sbox"><div class="sval vuzs" id="s-uzs">0</div><div class="slbl">💳 UZS</div></div>
+      </div>
+    </div>
+
+    <div class="sec-title" style="margin-top:4px">📦 Case Ochish</div>
+    <div class="case-btn" onclick="openModal('mcase')">
+      <span class="case-icon">📦</span>
+      <div class="case-title">WEAPON CASE</div>
+      <div class="case-price">🪙 10 tanga</div>
+      <div class="odds-bar">
+        <div class="odd-item l"><div class="odd-pct">3%</div><div class="odd-name">👑 Legendary</div></div>
+        <div class="odd-item e"><div class="odd-pct">10%</div><div class="odd-name">⭐ Epic</div></div>
+        <div class="odd-item c"><div class="odd-pct">87%</div><div class="odd-name">🔹 Common</div></div>
+      </div>
+    </div>
+
+    <div class="sec-title">🎮 O'yinlar</div>
+    <div class="games-grid">
+      <div class="gcard crash" onclick="openModal('mcrash')"><span class="gem">🚀</span><div class="gname">Crash</div><div class="gcost">Min: 1 🪙</div></div>
+      <div class="gcard cards" onclick="openModal('mcards')"><span class="gem">🎴</span><div class="gname">Kartalar</div><div class="gcost">3 🪙/karta</div></div>
+      <div class="gcard spin" onclick="openModal('mspin')"><span class="gem">🎰</span><div class="gname">Lucky Spin</div><div class="gcost">5 🪙/spin</div></div>
+      <div class="gcard inv" onclick="goTab('inv')"><span class="gem">🏆</span><div class="gname">Arsenal</div><div class="gcost">Qurollarim</div></div>
+    </div>
+
+    <div class="sec-title">🎟️ Promokod</div>
+    <div class="promo-box">
+      <div class="promo-wrap">
+        <input class="promo-inp" id="promoInp" placeholder="KODNI KIRITING" maxlength="20">
+        <button class="promo-btn" onclick="activatePromo()">✓ AKTIV</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab" id="t-inv">
+    <div style="padding:18px 16px 12px"><div class="sec-title">🏆 Arsenal</div></div>
+    <div class="inv-grid" id="invGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:rgba(255,255,255,.3);font-size:14px"><div style="font-size:46px;margin-bottom:12px">📦</div>Qurollaringiz yo'q.<br>Case oching!</div>
+    </div>
+  </div>
+
+  <div class="tab" id="t-exchange">
+    <div style="padding:18px 16px 12px"><div class="sec-title">🪙 Pul Almashtirish bo'limi</div></div>
+    
+    <div class="ucard" style="margin-top:0; background:linear-gradient(135deg, #0b1d33, #08302b); border-color:rgba(0,255,135,0.2)">
+      <div class="uname" style="color:var(--wallet)">💰 ALMASHTIRISH AGENTLIGI</div>
+      <div style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:12px">Kurs: 1 Tanga = 1 UZS (Eng kam: 1,000 tanga)</div>
+      <div class="stats">
+        <div class="sbox"><div class="sval" id="ex-coins">0</div><div class="slbl">Tangalaringiz</div></div>
+        <div class="sbox" style="grid-column: span 2"><div class="sval vuzs" id="ex-uzs">0 UZS</div><div class="slbl">Sizning Pul hisobingiz</div></div>
+      </div>
+    </div>
+
+    <div class="sec-title">⚡ Tayyor paketlar</div>
+    <div class="exch-grid">
+      <div class="excard" onclick="packExchange(1000)"><div class="ex-tanga">1,000 🪙</div><div class="ex-arrow">➡️</div><div class="ex-pul">1,000 UZS</div></div>
+      <div class="excard" onclick="packExchange(5000)"><div class="ex-tanga">5,000 🪙</div><div class="ex-arrow">➡️</div><div class="ex-pul">5,000 UZS</div></div>
+      <div class="excard" onclick="packExchange(10000)"><div class="ex-tanga">10,000 🪙</div><div class="ex-arrow">➡️</div><div class="ex-pul">10,000 UZS</div></div>
+      <div class="excard" onclick="packExchange(20000)"><div class="ex-tanga">20,000 🪙</div><div class="ex-arrow">➡️</div><div class="ex-pul">20,000 UZS</div></div>
+      <div class="excard" onclick="packExchange(50000)"><div class="ex-tanga">50,000 🪙</div><div class="ex-arrow">➡️</div><div class="ex-pul">50,000 UZS</div></div>
+      <div class="excard" onclick="packExchange(100000)"><div class="ex-tanga">100,000 🪙</div><div class="ex-arrow">➡️</div><div class="ex-pul">100,000 UZS</div></div>
+    </div>
+
+    <div class="sec-title">✏️ Qolda kiritish</div>
+    <div class="promo-box">
+      <div class="inp-grp">
+        <div class="inp-lbl">Almashtirmoqchi bo'lgan tanga miqdori</div>
+        <input class="ginp" type="number" id="customExchInp" placeholder="Kamida 1000" min="1000">
+      </div>
+      <button class="btn-p" style="background:linear-gradient(135deg,#00b894,#009432); border-color:var(--wallet)" onclick="customExchange()">💳 TANGALARNI PULGA AYLANTIRISH</button>
+    </div>
+  </div>
+
+  <div class="tab" id="t-profile">
+    <div style="padding:18px 16px 12px"><div class="sec-title">👤 Profil</div></div>
+    <div class="ucard" style="margin-top:0">
+      <div class="uname" id="p-name">WARRIOR</div>
+      <div class="stats">
+        <div class="sbox"><div class="sval" id="p-coins">0</div><div class="slbl">Tangalar</div></div>
+        <div class="sbox"><div class="sval" id="p-cases">0</div><div class="slbl">Caseler</div></div>
+        <div class="sbox"><div class="sval vuzs" id="p-uzs">0</div><div class="slbl">UZS Pul</div></div>
+      </div>
+    </div>
+    <div style="padding:0 16px;margin-top:16px">
+      <button class="btn-p" style="background:linear-gradient(135deg,#2a0d0d,#400d0d);border-color:rgba(231,76,60,.4)" onclick="resetGame()">🗑️ O'YINNI QAYTA BOSHLASH</button>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div class="nitem active" id="n-home" onclick="goTab('home')"><span class="nico">🏠</span><span class="nlbl">Bosh</span></div>
+  <div class="nitem" id="n-inv" onclick="goTab('inv')"><span class="nico">🔫</span><span class="nlbl">Arsenal</span></div>
+  <div class="nitem" id="n-exchange" onclick="goTab('exchange')"><span class="nico">💳</span><span class="nlbl">Hamyon</span></div>
+  <div class="nitem" id="n-spin" onclick="openModal('mspin')"><span class="nico">🎰</span><span class="nlbl">Spin</span></div>
+  <div class="nitem" id="n-profile" onclick="goTab('profile')"><span class="nico">👤</span><span class="nlbl">Profil</span></div>
+</div>
+
+<div class="modal-ov" id="mcase">
+  <div class="modal">
+    <div class="mhandle"></div>
+    <div class="mtitle">📦 CASE OCHISH</div>
+    <div class="reveal-area" id="revArea">
+      <div style="font-size:32px;letter-spacing:8px">🔫⚙️🟢💙⭐</div>
+      <div style="color:rgba(255,255,255,.4);font-size:13px;margin-top:8px">Tayyor turish...</div>
+    </div>
+    <div id="caseBtnWrap">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+        <div style="padding:12px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);border-radius:12px;text-align:center">
+          <div style="color:rgba(255,255,255,.5);font-size:11px;margin-bottom:4px">BALANS</div>
+          <div style="font-family:'Orbitron',sans-serif;color:var(--gold);font-size:17px;font-weight:700" id="mbal">0 🪙</div>
+        </div>
+        <div style="padding:12px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);border-radius:12px;text-align:center">
+          <div style="color:rgba(255,255,255,.5);font-size:11px;margin-bottom:4px">NARX</div>
+          <div style="font-family:'Orbitron',sans-serif;color:#E74C3C;font-size:17px;font-weight:700">10 🪙</div>
+        </div>
+      </div>
+      <button class="btn-p" onclick="doCase()">🎁 CASE OCHISH</button>
+      <button class="btn-s" onclick="closeModal('mcase')">Bekor qilish</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="mcrash">
+  <div class="modal">
+    <div class="mhandle"></div>
+    <div class="mtitle">🚀 CRASH O'YINI</div>
+    <div class="crash-display">
+      <div class="crash-mult" id="cmult">1.00x</div>
+      <div class="crash-line"></div>
+      <div style="color:rgba(255,255,255,.4);font-size:13px" id="cstat">Tikish kiriting va boshlang</div>
+    </div>
+    <div class="inp-grp">
+      <div class="inp-lbl">Tikish miqdori</div>
+      <input class="ginp" type="number" id="cbet" placeholder="10" min="1">
+    </div>
+    <div class="qbets">
+      <div class="qbet" onclick="setV('cbet',5)">5</div>
+      <div class="qbet" onclick="setV('cbet',10)">10</div>
+      <div class="qbet" onclick="setV('cbet',25)">25</div>
+      <div class="qbet" onclick="setV('cbet',50)">50</div>
+    </div>
+    <button class="btn-p" id="cstartBtn" onclick="startCrash()">🚀 BOSHLASH</button>
+    <button class="btn-s" onclick="closeModal('mcrash')">Yopish</button>
+  </div>
+</div>
+
+<div class="modal-ov" id="mcards">
+  <div class="modal">
+    <div class="mhandle"></div>
+    <div class="mtitle">🎴 KARTA O'YINI</div>
+    <div id="cph1">
+      <div class="inp-grp">
+        <div class="inp-lbl">2 xonali raqam (10–99)</div>
+        <input class="ginp" type="number" id="cnum" placeholder="42" min="10" max="99">
+      </div>
+      <div style="margin-bottom:14px">
+        <div class="inp-lbl">Nechta karta? (har biri 3 🪙)</div>
+        <div class="qbets">
+          <div class="qbet" id="cb1" onclick="setC(1)" style="border-color:rgba(0,245,255,.6);color:var(--neon)">1</div>
+          <div class="qbet" id="cb2" onclick="setC(2)">2</div>
+          <div class="qbet" id="cb3" onclick="setC(3)">3</div>
+          <div class="qbet" id="cb4" onclick="setC(4)">4</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-bottom:14px;color:var(--gold);font-family:'Orbitron',sans-serif;font-size:14px">
+        Xarajat: <span id="ccost">3</span> 🪙 | Yutuq: <b>100 🪙</b>
+      </div>
+      <button class="btn-p" onclick="playCards()">🎴 O'YNASH</button>
+      <button class="btn-s" onclick="closeModal('mcards')">Yopish</button>
+    </div>
+    <div id="cph2" style="display:none">
+      <div style="text-align:center;margin-bottom:10px;font-size:15px;color:rgba(255,255,255,.7)">
+        Sizning raqamingiz: <span id="pnumD" style="font-family:'Orbitron',sans-serif;color:var(--neon);font-size:20px;font-weight:700"></span>
+      </div>
+      <div class="cards-wrap" id="cwrap"></div>
+      <div id="cres" style="text-align:center;font-family:'Orbitron',sans-serif;font-size:19px;margin:14px 0;display:none"></div>
+      <button class="btn-p" onclick="resetCards()">🔄 YANA O'YNASH</button>
+      <button class="btn-s" onclick="closeModal('mcards')">Yopish</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="mspin">
+  <div class="modal">
+    <div class="mhandle"></div>
+    <div class="mtitle">🎰 LUCKY SPIN</div>
+    <div class="spin-cnt">
+      <div style="position:relative">
+        <div class="wheel-ptr">⬇️</div>
+        <div class="wheel" id="wheel"><div class="wheel-in">🎰</div></div>
+      </div>
+      <div style="margin-top:18px;width:100%">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;margin-bottom:16px">
+          <div style="padding:8px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);border-radius:8px;text-align:center"><div style="font-family:'Orbitron',sans-serif;color:#E74C3C">5%</div><div style="color:rgba(255,255,255,.5);font-size:11px">JACKPOT +100🪙</div></div>
+          <div style="padding:8px;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);border-radius:8px;text-align:center"><div style="font-family:'Orbitron',sans-serif;color:#2ECC71">15%</div><div style="color:rgba(255,255,255,.5);font-size:11px">KATTA +25🪙</div></div>
+          <div style="padding:8px;background:rgba(155,89,182,.1);border:1px solid rgba(155,89,182,.3);border-radius:8px;text-align:center"><div style="font-family:'Orbitron',sans-serif;color:#9B59B6">30%</div><div style="color:rgba(255,255,255,.5);font-size:11px">O'RTA +10🪙</div></div>
+          <div style="padding:8px;background:rgba(52,152,219,.1);border:1px solid rgba(52,152,219,.3);border-radius:8px;text-align:center"><div style="font-family:'Orbitron',sans-serif;color:#3498DB">50%</div><div style="color:rgba(255,255,255,.5);font-size:11px">KICHIK +3🪙</div></div>
+        </div>
+        <button class="btn-p" id="spinBtn" onclick="doSpin()">🎰 AYLANTIR! (5 🪙)</button>
+        <button class="btn-s" onclick="closeModal('mspin')">Yopish</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov active" id="mreg">
+  <div class="modal">
+    <div style="text-align:center;font-size:54px;margin-bottom:14px">⚔️</div>
+    <div class="mtitle">WEAPON CASE GAME</div>
+    <div style="text-align:center;margin-bottom:22px;color:rgba(255,255,255,.5);font-size:15px;line-height:1.6">Qurollar dunyosiga xush kelibsiz!<br><span style="color:var(--gold)">🎁 Boshlang'ich bonus: 50 🪙</span></div>
+    <div class="inp-grp">
+      <div class="inp-lbl">Ismingizni kiriting</div>
+      <input class="ginp" id="regName" placeholder="WARRIOR" maxlength="20" style="text-transform:uppercase">
+    </div>
+    <button class="btn-p" onclick="doRegister()">⚡ O'YINNI BOSHLASH</button>
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+let G = {coins:50,uzs:0,name:'',cases:0,weapons:[],promos:[]};
+const REEL = ['🔫','⚙️','🟢','💙','🌟','💚','👑','🎯','🔩','⭐','💎'];
+// 1ta Legendary, 2ta Epic va 7ta Common qurol strukturasi
+const WP = {
+  basic:[
+    {id:'p1',name:"Odatiy Pistolet",ico:'🔫',r:'common',val:5},
+    {id:'p2',name:"Yashil Ov Miltig'i",ico:'🟢',r:'common',val:6},
+    {id:'p3',name:'Oddiy Avtomat',ico:'⚙️',r:'common',val:7},
+    {id:'p4',name:'Moviy Neonli Pistolet',ico:'💙',r:'common',val:15},
+    {id:'p5',name:'Zanglagan Revolver',ico:'🟤',r:'common',val:8},
+    {id:'p6',name:'Eski Snayper',ico:'🎯',r:'common',val:11},
+    {id:'p7',name:'Zang Bosgan Miltiq',ico:'🔩',r:'common',val:11}
+  ],
+  epic:[
+    {id:'e1',name:'Oltin Naqshli Revolver',ico:'🌟',r:'epic',val:55},
+    {id:'e2',name:'Yashil Plazmali Qurol',ico:'💚',r:'epic',val:70}
+  ],
+  ultimate:[
+    {id:'u1',name:'Oltin Plazmali Qurol',ico:'👑',r:'legendary',val:200}
+  ]
+};
+const ALL_W = [...WP.basic,...WP.epic,...WP.ultimate];
+const WM = {};
+ALL_W.forEach(w=>WM[w.id]=w);
+
+function save(){try{localStorage.setItem('wcg2',JSON.stringify(G))}catch(e){}}
+function load(){try{const d=localStorage.getItem('wcg2');if(d){const parsed=JSON.parse(d);if(parsed.uzs===undefined)parsed.uzs=0;G=parsed;return true}}catch(e){}return false}
+
+function ui(){
+  const c=G.coins;
+  const u=G.uzs.toLocaleString();
+  ['hcoins','s-coins','p-coins','ex-coins'].forEach(id=>setText(id,c));
+  ['huzs','s-uzs','p-uzs'].forEach(id=>setText(id,u));
+  setText('ex-uzs', u + ' UZS');
+  ['s-cases','p-cases'].forEach(id=>setText(id,G.cases));
+  const wl=G.weapons.length;
+  ['s-weap','p-weap'].forEach(id=>setText(id,wl));
+  setText('uname','⚡ '+G.name);
+  setText('p-name',G.name);
+  setText('mbal',c+' 🪙');
+  buildInv();
+}
+
+function setText(id,v){const el=document.getElementById(id);if(el)el.textContent=v}
+
+// ===== TABS =====
+function goTab(t){
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nitem').forEach(el=>el.classList.remove('active'));
+  document.getElementById('t-'+t).classList.add('active');
+  const n=document.getElementById('n-'+t);
+  if(n)n.classList.add('active');
+  ui();
+}
+
+// ===== MODALS =====
+function openModal(id){
+  if(id==='mcase')setText('mbal',G.coins+' 🪙');
+  document.getElementById(id).classList.add('active');
+}
+function closeModal(id){document.getElementById(id).classList.remove('active')}
+
+// ===== REGISTER =====
+function doRegister(){
+  const n=document.getElementById('regName').value.trim().toUpperCase();
+  if(n.length<2){showToast('❌ Ism kamida 2 ta harf!');return}
+  G.name=n;if(!G.uzs)G.uzs=0;save();
+  closeModal('mreg');ui();
+  showToast('🎉 Xush kelibsiz, '+n+'! +50 🪙 berildi!');
+  particles();
+}
+
+// ===== CASE OCHISH (EHTIMOLLIK YANGILANDI) =====
+async function doCase(){
+  if(G.coins<10){showToast('❌ Yetarli tanga yo\'q! Min: 10 🪙');return}
+  document.getElementById('caseBtnWrap').style.display='none';
+  const area=document.getElementById('revArea');
+  
+  let n=0;
+  const iv=setInterval(()=>{
+    const em=Array.from({length:6},()=>REEL[Math.floor(Math.random()*REEL.length)]);
+    area.innerHTML=`<div style="font-size:34px;letter-spacing:10px">${em.join('')}</div><div style="color:rgba(0,245,255,.6);font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;margin-top:8px">AYLANYAPTI...</div>`;
+    n++;
+  },120);
+  
+  await sleep(2000);clearInterval(iv);
+  
+  // O'zgartirish: Ehtimollik balansi (3% Legendary, 10% Epic, 87% Common)
+  const rand=Math.random()*100;
+  let w,tier;
+  if(rand<3){
+    w=WP.ultimate[0]; // 3%
+    tier='legendary';
+  }
+  else if(rand<13){
+    w=WP.epic[Math.floor(Math.random()*WP.epic.length)]; // 10% (3 dan 13 gacha bo'lgan oraliq)
+    tier='epic';
+  }
+  else{
+    w=WP.basic[Math.floor(Math.random()*WP.basic.length)]; // 87% (qolgan barcha holatlar)
+    tier='basic';
+  }
+  
+  const RL={legendary:'👑 LEGENDARY',epic:'⭐ EPIC',basic:'🔹 COMMON'};
+  
+  G.coins=G.coins-10+w.val;G.cases++;G.weapons.push(w.id);save();
+  
+  area.innerHTML=`<div style="animation:popIn .5s cubic-bezier(.175,.885,.32,1.275)"><div style="font-size:70px;margin-bottom:10px;filter:drop-shadow(0 0 20px rgba(255,215,0,.6))">${w.ico}</div><div class="rbadge ${tier}">${RL[tier]}</div><div style="font-size:17px;font-weight:700;color:white;margin:8px 0">${w.name}</div><div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:var(--gold)">+${w.val} 🪙</div></div>`;
+  
+  ui();
+  if(tier==='legendary')particles(15);
+  else if(tier==='epic')particles(6);
+  
+  setTimeout(()=>{
+    document.getElementById('caseBtnWrap').innerHTML=`<button class="btn-p" onclick="doCase()">🎁 YANA OCHISH</button><button class="btn-s" onclick="closeModal('mcase')">Yopish</button>`;
+    document.getElementById('caseBtnWrap').style.display='block';
+    setText('mbal',G.coins+' 🪙');
+  },900);
+}
+
+// ===== CRASH =====
+let cIv=null,cRun=false,cMult=1,cPt=1,cBet=0;
+
+function startCrash(){
+  const bet=parseInt(document.getElementById('cbet').value);
+  if(!bet||bet<1){showToast('❌ Tikish miqdori kiriting!');return}
+  if(bet>G.coins){showToast('❌ Yetarli tanga yo\'q!');return}
+  cBet=bet;
+  cPt=parseFloat((Math.random()*2.00+1.01).toFixed(2));
+  cMult=1;cRun=true;
+  
+  const btn=document.getElementById('cstartBtn');
+  btn.textContent='🛑 STOP!';btn.onclick=stopCrash;
+  btn.style.background='linear-gradient(135deg,#400d0d,#2a0505)';
+  btn.style.borderColor='rgba(231,76,60,.6)';
+  document.getElementById('cbet').disabled=true;
+  
+  cIv=setInterval(()=>{
+    if(!cRun)return;
+    cMult=parseFloat((cMult+Math.random()*.05+.01).toFixed(2));
+    const el=document.getElementById('cmult');
+    el.textContent=cMult.toFixed(2)+'x';el.className='crash-mult up';
+    setText('cstat','Potensial: '+Math.floor(cBet*cMult)+' 🪙');
+    if(cMult>=cPt){
+      cRun=false;clearInterval(cIv);
+      G.coins-=cBet;save();ui();
+      el.className='crash-mult dead';el.textContent=cPt.toFixed(2)+'x 💥';
+      setText('cstat','😭 Qulab tushdi! -'+cBet+' 🪙');
+      resetCrashUI();
+    }
+  },200);
+}
+
+function stopCrash(){
+  if(!cRun)return;
+  cRun=false;clearInterval(cIv);
+  const win=Math.floor(cBet*cMult);
+  G.coins=G.coins-cBet+win;save();ui();
+  document.getElementById('cmult').className='crash-mult';
+  setText('cstat','🎉 '+cMult.toFixed(2)+'x! +'+win+' 🪙');
+  showToast('✅ '+cMult.toFixed(2)+'x da to\'xtadingiz! +'+win+' 🪙');
+  if(win>cBet*2)particles(8);
+  resetCrashUI();
+}
+
+function resetCrashUI(){
+  setTimeout(()=>{
+    const btn=document.getElementById('cstartBtn');
+    btn.textContent='🚀 BOSHLASH';btn.onclick=startCrash;
+    btn.style.background='';btn.style.borderColor='';
+    document.getElementById('cbet').disabled=false;
+    document.getElementById('cmult').className='crash-mult';
+    document.getElementById('cmult').textContent='1.00x';
+    setText('cstat','Tikish kiriting va boshlang');
+  },2200);
+}
+
+// ===== CARDS =====
+let selC=1,pnum=0;
+
+function setC(n){
+  selC=n;setText('ccost',n*3);
+  [1,2,3,4].forEach(i=>{
+    const el=document.getElementById('cb'+i);
+    el.style.borderColor=i===n?'rgba(0,245,255,.8)':'rgba(255,215,0,.2)';
+    el.style.color=i===n?'var(--neon)':'var(--gold)';
+  });
+}
+
+function playCards(){
+  const n=parseInt(document.getElementById('cnum').value);
+  if(!n||n<10||n>99){showToast('❌ 10 dan 99 gacha raqam kiriting!');return}
+  const cost=selC*3;
+  if(cost>G.coins){showToast('❌ Yetarli tanga yo\'q! Kerak: '+cost+' 🪙');return}
+  pnum=n;setText('pnumD',n);
+  
+  const nums=Array.from({length:selC},()=>Math.floor(Math.random()*90)+10);
+  const wrap=document.getElementById('cwrap');wrap.innerHTML='';
+  nums.forEach((_,i)=>{
+    const c=document.createElement('div');
+    c.className='pcard';c.id='pc'+i;wrap.appendChild(c);
+  });
+  
+  document.getElementById('cph1').style.display='none';
+  document.getElementById('cph2').style.display='block';
+  document.getElementById('cres').style.display='none';
+  
+  let hasWon=false;
+  nums.forEach((cn,i)=>{
+    setTimeout(()=>{
+      const c=document.getElementById('pc'+i);
+      c.textContent=cn;c.classList.add('rev');
+      if(cn===pnum){c.classList.add('win');hasWon=true}
+      else c.classList.add('lose');
+      if(i===nums.length-1)setTimeout(()=>showCardRes(hasWon,cost),500);
+    },i*600);
+  });
+}
+
+function showCardRes(won,cost){
+  const r=document.getElementById('cres');r.style.display='block';
+  if(won){
+    G.coins=G.coins-cost+10;
+    r.innerHTML='🎉 <span style="color:var(--gold)">YUTDINGİZ! +10 🪙</span>';
+    particles(8);
+  }else{
+    G.coins-=cost;
+    r.innerHTML='😢 <span style="color:#E74C3C">Yutqazdingiz! -'+cost+' 🪙</span>';
+  }
+  save();ui();
+}
+
+function resetCards(){
+  document.getElementById('cph1').style.display='block';
+  document.getElementById('cph2').style.display='none';
+  document.getElementById('cnum').value='';
+}
+
+// ===== SPIN =====
+let spinOn=false;
+
+function doSpin(){
+  if(spinOn)return;
+  if(G.coins<5){showToast('❌ Kerak: 5 🪙');return}
+  spinOn=true;document.getElementById('spinBtn').disabled=true;
+  
+  const r=Math.random()*100;
+  let prize;
+  if(r<5)prize={label:'🥇 JACKPOT! +100 🪙',val:100};
+  else if(r<20)prize={label:'🥈 KATTA +25 🪙',val:25};
+  else if(r<50)prize={label:'🥉 O\'RTA +10 🪙',val:10};
+  else prize={label:'😐 KICHIK +3 🪙',val:3};
+  
+  const deg=(3+Math.random()*3)*360+Math.random()*360;
+  document.getElementById('wheel').style.transform='rotate('+deg+'deg)';
+  
+  setTimeout(()=>{
+    G.coins=G.coins-5+prize.val;save();ui();
+    showToast(prize.label);
+    if(prize.val>=25)particles(prize.val>=100?18:8);
+    spinOn=false;document.getElementById('spinBtn').disabled=false;
+  },3200);
+}
+
+// ===== EXCHANGE LOGIC =====
+function packExchange(amt){
+  if(G.coins < amt){
+    showToast(`❌ Yetarli tangangiz yo'q! Paket uchun ${amt} 🪙 kerak.`);
+    return;
+  }
+  G.coins -= amt;
+  G.uzs += amt;
+  save();
+  ui();
+  showToast(`💸 Muvaffaqiyatli almashtirildi! +${amt.toLocaleString()} UZS balansga qo'shildi.`);
+  particles(10);
+}
+
+function customExchange(){
+  const inp = document.getElementById('customExchInp');
+  const val = parseInt(inp.value);
+  if(!val || val < 1000){
+    showToast('❌ Eng kamida 1,000 ta tanga kiritishingiz kerak!');
+    return;
+  }
+  if(G.coins < val){
+    showToast(`❌ Balansingizda yetarli tanga yo'q! Sizda: ${G.coins} 🪙`);
+    return;
+  }
+  G.coins -= val;
+  G.uzs += val;
+  save();
+  ui();
+  inp.value = '';
+  showToast(`💸 Professional Ayirboshlash! +${val.toLocaleString()} UZS hisobingizga o'tkazildi.`);
+  particles(12);
+}
+
+// ===== INVENTORY =====
+function buildInv(){
+  const grid=document.getElementById('invGrid');
+  if(!G.weapons.length){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:rgba(255,255,255,.3);font-size:14px"><div style="font-size:46px;margin-bottom:12px">📦</div>Qurollaringiz yo\'q.<br>Case oching!</div>';
+    return;
+  }
+  const cnt={};G.weapons.forEach(id=>cnt[id]=(cnt[id]||0)+1);
+  grid.innerHTML=Object.entries(cnt).map(([id,c])=>{
+    const w=WM[id]||{name:id,ico:'🔫',r:'common'};
+    return`<div class="wcard ${w.r}"><div class="wcnt">x${c}</div><div class="wico">${w.ico}</div><div class="wnm">${w.name}</div><div class="rbadge ${w.r}" style="font-size:9px;padding:2px 10px;margin-top:6px">${w.r.toUpperCase()}</div></div>`;
+  }).join('');
+}
+
+// ===== PROMO =====
+function activatePromo(){
+  const code=document.getElementById('promoInp').value.trim().toUpperCase();
+  if(!code){showToast('❌ Kod kiriting!');return}
+  
+  if(G.promos.includes(code)){
+    showToast('❌ Siz allaqachon bu kodni ishlatdingiz!');
+    return;
+  }
+  
+  let bonus = 0;
+  
+  if(code==='BEKUZ'){ bonus = 10; }
+  else if(code==='BEK01'){ bonus = 20; }
+  else if(code==='UZBEK01'){ bonus = 40; }
+  else if(code==='BEK11'){ bonus = 50; }
+  else if(code==='20111107'){ bonus = 100; }
+  else if(code==='CID'){ bonus = 200; }
+  else if(code==='LIGHTSPEED'){ bonus = 450; }
+  
+  if(bonus > 0){
+    G.coins += bonus;
+    G.promos.push(code);
+    save();
+    ui();
+    document.getElementById('promoInp').value='';
+    showToast(`🎉 ${code}: +${bonus} 🪙 berildi!`);
+    particles(Math.min(6 + Math.floor(bonus/10), 20));
+  } else {
+    showToast('❌ Noto\'g\'ri promokod!');
+  }
+}
+
+// ===== UTILS =====
+function setV(id,v){document.getElementById(id).value=v}
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2600);
+}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+function particles(n=12){
+  const ems=['🎉','⭐','💫','✨','🪙','💎','💸','💳'];
+  const cx=window.innerWidth/2,cy=window.innerHeight/2;
+  for(let i=0;i<n;i++)setTimeout(()=>{
+    const p=document.createElement('div');p.className='particle';
+    p.textContent=ems[Math.floor(Math.random()*ems.length)];
+    const a=Math.random()*Math.PI*2,d=100+Math.random()*150;
+    p.style.cssText=`left:${cx}px;top:${cy}px;--tx:${Math.cos(a)*d}px;--ty:${Math.sin(a)*d-100}px`;
+    document.body.appendChild(p);setTimeout(()=>p.remove(),1500);
+  },i*60);
+}
+function resetGame(){
+  if(!confirm("O'yinni qayta boshlaysizmi? Barcha ma'lumotlar o'chadi!"))return;
+  localStorage.removeItem('wcg2');location.reload();
+}
+
+// ===== INIT =====
+window.onload=()=>{
+  const has=load();
+  if(has&&G.name)closeModal('mreg');
+  ui();
+  document.getElementById('regName').onkeypress=e=>{if(e.key==='Enter')doRegister()};
+  document.getElementById('promoInp').onkeypress=e=>{if(e.key==='Enter')activatePromo()};
+  document.querySelectorAll('.modal-ov').forEach(ov=>{
+    ov.onclick=e=>{
+      if(e.target===ov&&ov.id!=='mreg'){
+        closeModal(ov.id);
+        if(ov.id==='mcrash'&&cRun)stopCrash();
+      }
+    };
+  });
+};
+</script>
+</body>
+</html>
